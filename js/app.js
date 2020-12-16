@@ -101,9 +101,10 @@ function scrollTo(section) {
 // set time out
 
 window.addEventListener('scroll', function() {
-  setTimeout(function(){
-
   document.getElementById("toTop").style.visibility = "visible";
   document.getElementsByTagName("nav")[0].style.visibility = "visible";
-}, 0);
+setTimeout(function(){
+  document.getElementById("toTop").style.visibility = "hidden";
+   document.getElementsByTagName("nav")[0].style.visibility = "hidden";
+}, 8000);
 });
