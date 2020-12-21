@@ -27,13 +27,22 @@ const sections = document.querySelectorAll("section");
 function isInViewport(element) {
   const rect = element.getBoundingClientRect();
   console.log(rect)
-  console.log(window.innerHeight, window.innerWidth, screen.height, screen.width)
+  console.log( window.innerWidth, screen.height, screen.width)
   return (
     rect.x >= 0 &&
     rect.y >= 0 &&
     rect.height <= screen.height &&
     rect.width <= window.innerWidth
   );
+}
+
+function setActive(sections) {
+for(let i = 0; i<sections.length; i++) {
+  if(isInViewport(sections[i])) {
+    sections[i].classList.add("your-active-class");
+  } else
+  sections[i].classList.remove("your-active-class");
+}
 }
 /**
  * End Helper Functions
@@ -52,15 +61,10 @@ for (let i = 0; i < sections.length; i++) {
 function addClass(current) {
   let currentSectionId = current.toLowerCase().replace(" ", "");
   let currentSection = document.getElementById(currentSectionId);
-  console.log(isInViewport(currentSection));
-  // let lastActiveSection =
-  // document.querySelectorAll(".your-active-class")[0];
   document.querySelectorAll(".your-active-class")[0].classList.remove("your-active-class");
-  // document.getElementsByClassName("your-active-class").classList.remove("your-active-class");
   if(isInViewport(currentSection)){
     currentSection.classList.add("your-active-class");
   }
-  // currentSection.classList.remove("your-active-class");
 }
 // Scroll to anchor ID using scrollTO event
 for (let i = 0; i < sections.length; i++) {
@@ -100,18 +104,17 @@ function scrollTo(section) {
         behavior: "smooth"
       });
       setTimeout(function(){
-     // document.getElementById("toTop").style.visibility = "hidden";
       document.getElementsByTagName("nav")[0].style.visibility = "hidden";
       }, 1000);
     }
   }
 }
 // set time out
-
 window.addEventListener('scroll', function() {
+
   document.getElementsByTagName("nav")[0].style.visibility = "visible";
 setTimeout(function(){
-  // document.getElementById("toTop").style.visibility = "hidden";
    document.getElementsByTagName("nav")[0].style.visibility = "hidden";
 }, 10000);
+setActive(sections);
 });
